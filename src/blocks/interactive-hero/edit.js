@@ -2,40 +2,10 @@
 /**
  * WordPress Dependencies
  */
-import { InspectorControls, PanelColorSettings, useBlockProps, RichText, MediaUpload } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, SelectControl, BaseControl, Button, CardDivider } from '@wordpress/components';
+import { BlockControls, InspectorControls, MediaUpload, PanelColorSettings, RichText, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody, SelectControl, TextareaControl, TextControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { Fragment, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import classNames from 'classnames';
-
-// upload and preview component
-const MediaUploadPreview = ({ media, onSelect, label, onRemove }) => {
-    return (
-        <BaseControl label={label}>
-            {media?.url ? (
-                <div className="media-upload-preview">
-                    <img src={media.url} alt={media.alt} className="media-upload-image" />
-                    <MediaUpload
-                        onSelect={onSelect}
-                        allowedTypes={['image']}
-                        multiple={false}
-                        value={media.id}
-                        render={({ open }) => <Button icon="edit" label={__('Edit Image', 'native-blocks')} onClick={open} />}
-                    />
-                    <Button icon="trash" label={__('Remove Image', 'native-blocks')} onClick={onRemove} />
-                </div>
-            ) : (
-                <MediaUpload
-                    onSelect={onSelect}
-                    allowedTypes={['image']}
-                    multiple={false}
-                    value={media?.id}
-                    render={({ open }) => <Button icon="upload" label={__('Upload Image', 'native-blocks')} onClick={open} />}
-                />
-            )}
-        </BaseControl>
-    );
-};
 
 // block edit function
 const Edit = props => {
@@ -55,8 +25,7 @@ const Edit = props => {
     } = attributes;
 
     // Create CSS custom properties object
-    const cssCustomProperties = {
-    };
+    const cssCustomProperties = {};
 
     // block props with inline styles for CSS variables
     const blockProps = useBlockProps({
@@ -72,6 +41,68 @@ const Edit = props => {
 
     return (
         <Fragment>
+            <BlockControls>
+                <ToolbarGroup>
+                    <MediaUpload
+                        onSelect={media => {
+                            setAttributes({
+                                bgVideo: media
+                            });
+                        }}
+                        allowedTypes={['video']}
+                        multiple={false}
+                        value={bgVideo?.id}
+                        render={({ open }) => (
+                            <ToolbarButton
+                                className="components-toolbar__control"
+                                label={bgVideo ? __('Change Video', 'native-blocks') : __('Upload Video', 'native-blocks')}
+                                icon="video-alt3"
+                                onClick={open}
+                            />
+                        )}
+                    />
+                    {bgVideo?.url && (
+                        <ToolbarButton
+                            className="components-toolbar__control"
+                            label={__('Remove Video', 'native-blocks')}
+                            icon="trash"
+                            onClick={() => setAttributes({ bgVideo: null })}
+                        />
+                    )}
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <MediaUpload
+                        onSelect={media => {
+                            setAttributes({
+                                posterImage: {
+                                    url: media.url,
+                                    alt: media.alt,
+                                    id: media.id
+                                }
+                            });
+                        }}
+                        allowedTypes={['image']}
+                        multiple={false}
+                        value={posterImage?.id}
+                        render={({ open }) => (
+                            <ToolbarButton
+                                className="components-toolbar__control"
+                                label={posterImage?.url ? __('Change Image', 'native-blocks') : __('Upload Image', 'native-blocks')}
+                                icon="format-image"
+                                onClick={open}
+                            />
+                        )}
+                    />
+                    {posterImage?.url && (
+                        <ToolbarButton
+                            className="components-toolbar__control"
+                            label={__('Remove Image', 'native-blocks')}
+                            icon="trash"
+                            onClick={() => setAttributes({ posterImage: null })}
+                        />
+                    )}
+                </ToolbarGroup>
+            </BlockControls>
             {isSelected && (
                 <InspectorControls>
                     <PanelBody>
@@ -89,89 +120,134 @@ const Edit = props => {
                             ]}
                             onChange={value => setAttributes({ titleTag: value })}
                         />
-                    </PanelBody>
-                    <PanelBody title={__('Poster', 'native-blocks')} initialOpen={false}>
-                        <MediaUploadPreview
-                            media={posterImage}
-                            onSelect={media => {
+                        <TextareaControl
+                            label={__('Ticker Text', 'native-blocks')}
+                            value={tickerText}
+                            onChange={v =>
                                 setAttributes({
-                                    posterImage: {
-                                        url: media.url,
-                                        alt: media.alt,
-                                        id: media.id
-                                    }
-                                });
-                            }}
-                            onRemove={() => setAttributes({ posterImage: null })}
-                            label={__('Video Poster', 'native-blocks')}
+                                    tickerText: v
+                                })
+                            }
+                        />
+                    </PanelBody>
+                    <PanelBody title={__('Primary Button', 'native-blocks')} initialOpen={false}>
+                        <TextControl
+                            label={__('Text', 'native-blocks')}
+                            value={primaryBtnText}
+                            onChange={value => setAttributes({ primaryBtnText: value })}
+                            placeholder={__('Enter text...', 'native-blocks')}
+                        />
+                        <TextControl
+                            label={__('URL', 'native-blocks')}
+                            value={primaryBtnUrl}
+                            onChange={value => setAttributes({ primaryBtnUrl: value })}
+                            placeholder={__('Enter URL...', 'native-blocks')}
+                        />
+                    </PanelBody>
+                    <PanelBody title={__('Secondary Button', 'native-blocks')} initialOpen={false}>
+                        <TextControl
+                            label={__('Text', 'native-blocks')}
+                            value={secondaryBtnText}
+                            onChange={value => setAttributes({ secondaryBtnText: value })}
+                            placeholder={__('Enter text...', 'native-blocks')}
+                        />
+                        <TextControl
+                            label={__('URL', 'native-blocks')}
+                            value={secondaryBtnUrl}
+                            onChange={value => setAttributes({ secondaryBtnUrl: value })}
+                            placeholder={__('Enter URL...', 'native-blocks')}
                         />
                     </PanelBody>
                     <PanelColorSettings
                         title={__('Colors', 'native-blocks')}
                         initialOpen={false}
-                        colorSettings={[
-                            // {
-                            //     value: textColor,
-                            //     onChange: color => setAttributes({ textColor: color }),
-                            //     label: __('Text', 'native-blocks')
-                            // },
-                            // {
-                            //     value: bgColor,
-                            //     onChange: color => setAttributes({ bgColor: color }),
-                            //     label: __('Background', 'native-blocks')
-                            // }
-                        ]}
+                        colorSettings={
+                            [
+                                // {
+                                //     value: textColor,
+                                //     onChange: color => setAttributes({ textColor: color }),
+                                //     label: __('Text', 'native-blocks')
+                                // },
+                                // {
+                                //     value: bgColor,
+                                //     onChange: color => setAttributes({ bgColor: color }),
+                                //     label: __('Background', 'native-blocks')
+                                // }
+                            ]
+                        }
                     />
                 </InspectorControls>
             )}
             <div {...blockProps}>
-                <div className='ticker-text'>
-                    As of the 7/04/25, our repair prices have increased, ensuring that they reflect the amazing work of our experienced workshop team. Check out our Workshop Pricing here. As of the 7/04/25, our repair prices have increased, ensuring that they reflect the amazing work of our experienced workshop team. Check out our Workshop Pricing here.
-                </div>
-                <div className='bg-video-wrapper'>
-                    {bgVideo && (
-                        <video
-                            className='bg-video'
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            poster={posterImage?.url}
-                        >
-                            <source src={bgVideo} type='video/mp4' />
+                {tickerText && (
+                    <div className="ticker-text-seamless">
+                        <div className="ticker-content">{tickerText}</div>
+                        <button id="expand-collapse">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
+                <div className="bg-video-wrapper">
+                    {bgVideo?.url && (
+                        <video className="bg-video" autoPlay loop muted playsInline poster={posterImage?.url}>
+                            <source src={bgVideo?.url} type="video/mp4" />
                         </video>
                     )}
                     {posterImage && (
-                        <div className='poster-image'>
+                        <div className="poster-image">
                             <img src={posterImage.url} alt={posterImage.alt} />
                         </div>
-                    )}  
+                    )}
                 </div>
-                <div className='content-wrapper'>
-                    <div className='content'>
+                <div className="content-wrapper">
+                    <div className="content">
                         <RichText
                             tagName={titleTag}
                             className="title"
-                            value={ title }
-                            onChange={ ( v ) => setAttributes( { title: v } ) }
+                            value={title}
+                            onChange={v => setAttributes({ title: v })}
                             placeholder={__('Enter title...', 'native-blocks')}
                         />
                         <RichText
                             tagName="p"
                             className="description"
-                            value={ description }
-                            onChange={ ( v ) => setAttributes( { description: v } ) }
+                            value={description}
+                            onChange={v => setAttributes({ description: v })}
                             placeholder={__('Enter description...', 'native-blocks')}
                         />
-                        <div className='buttons'>
+                        <div className="buttons">
                             {primaryBtnText && (
-                                <a href={primaryBtnUrl} className='primary-btn'>
+                                <a href={primaryBtnUrl} className="primary-btn">
                                     {primaryBtnText}
+                                    <span className="arrow">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            viewBox="0 0 16 16"
+                                        >
+                                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                        </svg>
+                                    </span>
                                 </a>
                             )}
                             {secondaryBtnText && (
-                                <a href={secondaryBtnUrl} className='secondary-btn'>
+                                <a href={secondaryBtnUrl} className="secondary-btn">
                                     {secondaryBtnText}
+                                    <span className="arrow">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            viewBox="0 0 16 16"
+                                        >
+                                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                        </svg>
+                                    </span>
                                 </a>
                             )}
                         </div>

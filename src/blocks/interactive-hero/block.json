@@ -20,8 +20,8 @@
         "blockStyle": {
             "type": "object"
         },
-        "bgVideo":{
-            "type": "string"
+        "bgVideo": {
+            "type": "object"
         },
         "posterImage": {
             "type": "object"
@@ -48,11 +48,16 @@
             "type": "string",
             "default": "See Jackets"
         },
+        "secondaryBtnUrl": {
+            "type": "string",
+            "default": "#"
+        },
         "tickerText": {
             "type": "string"
         }
     },
     "textdomain": "native-blocks",
     "editorScript": "file:./index.js",
-    "style": "file:./style-index.css"
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
 }
