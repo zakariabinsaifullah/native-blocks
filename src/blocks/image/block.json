@@ -1,0 +1,64 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "ntbs/image",
+    "version": "1.0.0",
+    "title": "Image Block",
+    "icon": "block-default",
+    "category": "text",
+    "description": "Interactive hero area with video background, text, and buttons.",
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "example": {},
+    "attributes": {
+        "blockStyle": {
+            "type": "object"
+        },
+        "photo": {
+            "type": "object"
+        },
+        "heading": {
+            "type": "string"    
+
+        },
+        "headingColor": {
+            "type": "string"
+            
+        },
+        "linkUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "linkTarget": {
+            "type": "string",
+            "default": "_self"
+        },
+        "imageRes": {
+            "type": "string",
+            "default": "large"
+        } ,
+         "fitPosition": {
+            "type": "object",
+            "default": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "imageHeight": {
+            "type": "number"
+        },
+         "containerRadius": {
+            "type": "number"
+        }
+        
+        }
+    },
+    "textdomain": "native-blocks",
+    "editorScript": "file:./index.js",
+    "style": "file:./style-index.css"
+}
