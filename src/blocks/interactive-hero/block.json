@@ -1,0 +1,58 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "ntbs/interactive-hero",
+    "version": "1.0.0",
+    "title": "Interactive Hero",
+    "icon": "block-default",
+    "category": "text",
+    "description": "Interactive hero area with video background, text, and buttons.",
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "example": {},
+    "attributes": {
+        "blockStyle": {
+            "type": "object"
+        },
+        "bgVideo":{
+            "type": "string"
+        },
+        "posterImage": {
+            "type": "object"
+        },
+        "title": {
+            "type": "string"
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "h1"
+        },
+        "description": {
+            "type": "string"
+        },
+        "primaryBtnText": {
+            "type": "string",
+            "default": "Explore Range"
+        },
+        "primaryBtnUrl": {
+            "type": "string",
+            "default": "#"
+        },
+        "secondaryBtnText": {
+            "type": "string",
+            "default": "See Jackets"
+        },
+        "tickerText": {
+            "type": "string"
+        }
+    },
+    "textdomain": "native-blocks",
+    "editorScript": "file:./index.js",
+    "style": "file:./style-index.css"
+}

@@ -1,0 +1,40 @@
+{
+    "name": "nativeblocks",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "wp-scripts build",
+        "start": "wp-scripts start",
+        "packages-update": "wp-scripts packages-update",
+        "make-pot": "wp i18n make-pot . languages/nativeblocks.pot --exclude=node_modules,assets,build",
+        "zip-plugin": "cd .. && zip -r nativeblocks.zip nativeblocks -x \"nativeblocks/node_modules/*\" \"nativeblocks/src/*\" \"nativeblocks/.git/*\" \"nativeblocks/.vscode/*\" \"nativeblocks/.DS_Store\" \"nativeblocks/**/.DS_Store/*\" \"nativeblocks/.idea/*\" \"nativeblocks/phpcs.xml\" \"nativeblocks/composer.lock\" \"nativeblocks/.eslintrc.json\" \"nativeblocks/package.json\" \"nativeblocks/package-lock.json\" \"nativeblocks/webpack.config.js\" \"nativeblocks/.gitignore\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "prettier": {
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "htmlWhitespaceSensitivity": "css",
+        "insertPragma": false,
+        "jsxBracketSameLine": false,
+        "jsxSingleQuote": false,
+        "printWidth": 140,
+        "proseWrap": "preserve",
+        "quoteProps": "as-needed",
+        "requirePragma": false,
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "none",
+        "useTabs": false,
+        "rangeStart": 0
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "^30.17.0"
+    },
+    "dependencies": {
+        "classnames": "^2.5.1"
+    }
+}
