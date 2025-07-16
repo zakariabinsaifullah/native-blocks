@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Native Blocks
+ * Plugin Name: BEM Blocks
  * Description: Custom native blocks for Gutenberg editor.
  * Author: Zakaria Binsaifullah 
  * Author URI: https://devzakaria.com
@@ -10,21 +10,21 @@
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @package NativeBlocks
+ * @package BEM Blocks
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'NativeBlocks' ) ) {
+if ( ! class_exists( 'BemBlocks' ) ) {
     
-    class NativeBlocks {
+    class BemBlocks {
         
         /**
          * Single instance of the class
          *
-         * @var NativeBlocks
+         * @var BemBlocks
          */
         private static $instance = null;
         
@@ -52,7 +52,7 @@ if ( ! class_exists( 'NativeBlocks' ) ) {
         /**
          * Get single instance of the class
          *
-         * @return NativeBlocks
+         * @return BemBlocks
          */
         public static function get_instance() {
             if ( null === self::$instance ) {
@@ -107,4 +107,4 @@ if ( ! class_exists( 'NativeBlocks' ) ) {
 }
 
 // Initialize the plugin
-NativeBlocks::get_instance();
+BemBlocks::get_instance();

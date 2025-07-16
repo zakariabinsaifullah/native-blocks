@@ -3,7 +3,7 @@
  * WordPress Dependencies
  */
 import { BlockControls, InspectorControls, MediaUpload, PanelColorSettings, RichText, useBlockProps } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, TextareaControl, TextControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { PanelBody, RangeControl, SelectControl, TextareaControl, TextControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { Fragment, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -21,11 +21,24 @@ const Edit = props => {
         primaryBtnUrl,
         secondaryBtnText,
         secondaryBtnUrl,
-        tickerText
+        tickerText,
+        height,
+        textColor,
+        pbtnTextColor,
+        pbtnBgColor,
+        sbtnTextColor,
+        sbtnBgColor
     } = attributes;
 
     // Create CSS custom properties object
-    const cssCustomProperties = {};
+    const cssCustomProperties = {
+        ...(height && { '--hero-height': `${height}px` }),
+        ...(textColor && { '--text-color': textColor }),
+        ...(pbtnTextColor && { '--pbtn-color': pbtnTextColor }),
+        ...(pbtnBgColor && { '--pbtn-bg': pbtnBgColor }),
+        ...(sbtnTextColor && { '--sbtn-color': sbtnTextColor }),
+        ...(sbtnBgColor && { '--sbtn-bg': sbtnBgColor })
+    };
 
     // block props with inline styles for CSS variables
     const blockProps = useBlockProps({
@@ -37,7 +50,7 @@ const Edit = props => {
         setAttributes({
             blockStyle: cssCustomProperties
         });
-    }, []);
+    }, [height, textColor, pbtnTextColor, pbtnBgColor, sbtnTextColor, sbtnBgColor]);
 
     return (
         <Fragment>
@@ -106,6 +119,15 @@ const Edit = props => {
             {isSelected && (
                 <InspectorControls>
                     <PanelBody>
+                        <RangeControl
+                            label={__('Container Height', 'native-blocks')}
+                            value={height}
+                            onChange={v => setAttributes({ height: v })}
+                            min={100}
+                            max={2000}
+                            allowReset={true}
+                            resetFallbackValue={750}
+                        />
                         <SelectControl
                             label={__('Select Title Tag', 'native-blocks')}
                             value={titleTag}
@@ -161,20 +183,33 @@ const Edit = props => {
                     <PanelColorSettings
                         title={__('Colors', 'native-blocks')}
                         initialOpen={false}
-                        colorSettings={
-                            [
-                                // {
-                                //     value: textColor,
-                                //     onChange: color => setAttributes({ textColor: color }),
-                                //     label: __('Text', 'native-blocks')
-                                // },
-                                // {
-                                //     value: bgColor,
-                                //     onChange: color => setAttributes({ bgColor: color }),
-                                //     label: __('Background', 'native-blocks')
-                                // }
-                            ]
-                        }
+                        colorSettings={[
+                            {
+                                value: textColor,
+                                onChange: color => setAttributes({ textColor: color }),
+                                label: __('Text', 'native-blocks')
+                            },
+                            {
+                                value: pbtnTextColor,
+                                onChange: color => setAttributes({ pbtnTextColor: color }),
+                                label: __('Primary Button Text', 'native-blocks')
+                            },
+                            {
+                                value: pbtnBgColor,
+                                onChange: color => setAttributes({ pbtnBgColor: color }),
+                                label: __('Primary Button Background', 'native-blocks')
+                            },
+                            {
+                                value: sbtnTextColor,
+                                onChange: color => setAttributes({ sbtnTextColor: color }),
+                                label: __('Secondary Button Text', 'native-blocks')
+                            },
+                            {
+                                value: sbtnBgColor,
+                                onChange: color => setAttributes({ sbtnBgColor: color }),
+                                label: __('Secondary Button Background', 'native-blocks')
+                            }
+                        ]}
                     />
                 </InspectorControls>
             )}
@@ -219,8 +254,13 @@ const Edit = props => {
                         />
                         <div className="buttons">
                             {primaryBtnText && (
-                                <a href={primaryBtnUrl} className="primary-btn">
-                                    {primaryBtnText}
+                                <a className="primary-btn">
+                                    <RichText
+                                        tagName="span"
+                                        value={primaryBtnText}
+                                        onChange={v => setAttributes({ primaryBtnText: v })}
+                                        placeholder={__('Label...', 'native-blocks')}
+                                    />
                                     <span className="arrow">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -235,8 +275,13 @@ const Edit = props => {
                                 </a>
                             )}
                             {secondaryBtnText && (
-                                <a href={secondaryBtnUrl} className="secondary-btn">
-                                    {secondaryBtnText}
+                                <a className="secondary-btn">
+                                    <RichText
+                                        tagName="span"
+                                        value={secondaryBtnText}
+                                        onChange={v => setAttributes({ secondaryBtnText: v })}
+                                        placeholder={__('Label...', 'native-blocks')}
+                                    />
                                     <span className="arrow">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"

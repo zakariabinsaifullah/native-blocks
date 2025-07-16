@@ -54,6 +54,26 @@
         },
         "tickerText": {
             "type": "string"
+        },
+        "height": {
+            "type": "number",
+            "default": 750
+        },
+        "textColor": {
+            "type": "string",
+            "default": "#ffffff"
+        },
+        "pbtnTextColor": {
+            "type": "string"
+        },
+        "pbtnBgColor": {
+            "type": "string"
+        },
+        "sbtnTextColor": {
+            "type": "string"
+        },
+        "sbtnBgColor": {
+            "type": "string"
         }
     },
     "textdomain": "native-blocks",

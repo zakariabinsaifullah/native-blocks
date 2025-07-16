@@ -1,5 +1,5 @@
 {
-    "name": "nativeblocks",
+    "name": "bem-blocks",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -7,8 +7,8 @@
         "build": "wp-scripts build",
         "start": "wp-scripts start",
         "packages-update": "wp-scripts packages-update",
-        "make-pot": "wp i18n make-pot . languages/nativeblocks.pot --exclude=node_modules,assets,build",
-        "zip-plugin": "cd .. && zip -r nativeblocks.zip nativeblocks -x \"nativeblocks/node_modules/*\" \"nativeblocks/src/*\" \"nativeblocks/.git/*\" \"nativeblocks/.vscode/*\" \"nativeblocks/.DS_Store\" \"nativeblocks/**/.DS_Store/*\" \"nativeblocks/.idea/*\" \"nativeblocks/phpcs.xml\" \"nativeblocks/composer.lock\" \"nativeblocks/.eslintrc.json\" \"nativeblocks/package.json\" \"nativeblocks/package-lock.json\" \"nativeblocks/webpack.config.js\" \"nativeblocks/.gitignore\""
+        "make-pot": "wp i18n make-pot . languages/bem-blocks.pot --exclude=node_modules,assets,build",
+        "zip-plugin": "cd .. && zip -r bem-blocks.zip bem-blocks -x \"bem-blocks/node_modules/*\" \"bem-blocks/src/*\" \"bem-blocks/.git/*\" \"bem-blocks/.vscode/*\" \"bem-blocks/.DS_Store\" \"bem-blocks/**/.DS_Store/*\" \"bem-blocks/.idea/*\" \"bem-blocks/phpcs.xml\" \"bem-blocks/composer.lock\" \"bem-blocks/.eslintrc.json\" \"bem-blocks/package.json\" \"bem-blocks/package-lock.json\" \"bem-blocks/webpack.config.js\" \"bem-blocks/.gitignore\""
     },
     "keywords": [],
     "author": "",

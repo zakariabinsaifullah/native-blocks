@@ -1,0 +1,117 @@
+.wp-block-ntbs-image {
+    --native-border-radius: 0px;
+    --textColor: #fff;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+
+    &:hover {
+        img {
+            transform: scale(1.05);
+        }
+
+        .native-blocks-heading {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    .native-blocks-image-link {
+        text-decoration: none;
+        display: block;
+        position: relative;
+        height: 100%;
+    }
+
+    .overlay-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: var(--native-border-radius);
+        transition: transform 0.3s ease-in-out;
+        object-fit: cover;
+        object-position: var(--focal-point-x, 50%) var(--focal-point-y, 50%);
+    }
+
+    .native-blocks-heading {
+        color: var(--textColor);
+        font-size: clamp(20px, 3.5vw, 58px);
+        font-weight: 700;
+        line-height: 1em;
+        opacity: 0;
+        visibility: hidden;
+        margin: 0;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+        text-shadow: 10px 10px 10px rgb(132 125 125 / 30%);
+    }
+
+    // Media placeholder styles
+    .native-blocks-media-placeholder {
+        min-height: 200px;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .components-placeholder {
+            width: 100%;
+            min-height: 200px;
+        }
+
+        .native-blocks-image-icon {
+            margin-bottom: 10px;
+        }
+    }
+
+    // Responsive design
+    @media (max-width: 768px) {
+        .native-blocks-heading {
+            font-size: 1.2em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .native-blocks-heading {
+            font-size: 1em;
+        }
+    }
+}
+
+.wp-block-group-is-layout-grid {
+    .wp-block-group {
+        height: 100%;
+
+        * .wp-block-group {
+            height: 100%;
+        }
+    }
+
+    .wp-block-group__inner-container {
+        height: 100%;
+        * .wp-block-group__inner-container {
+            height: 100%;
+        }
+    }
+}
+
+// mobile view
+@media (max-width: 768px) {
+    .wp-block-group-is-layout-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
